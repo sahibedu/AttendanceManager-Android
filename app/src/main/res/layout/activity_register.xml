@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/gradientcolor">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome To Attendace Manager"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:id="@+id/titletext"
+        android:layout_marginTop="24dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titletext"
+        android:hint="Enter Your Name"
+        android:layout_marginTop="40dp"
+        android:textColor="@android:color/white"
+        android:id="@+id/nameedittext"
+        android:inputType="textAutoComplete"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameedittext"
+        android:hint="Enter Email id"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:contentDescription="Hello World"
+        android:id="@+id/emailedittext"
+        android:inputType="textEmailAddress"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailedittext"
+        android:hint="Enter Password"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:id="@+id/passwordedittext"
+        android:inputType="textPassword"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordedittext"
+        android:hint="Confirm Password"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:id="@+id/confirmpassedittext"
+        android:inputType="textPassword"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@android:color/holo_red_light"/>
+
+</RelativeLayout>
