@@ -14,6 +14,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView passwordTextView;
     Button loginBtn, registerBtn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +28,10 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (emailTextView.getText().toString() == "admin") {
+                if (emailTextView.getText().toString().equalsIgnoreCase("admin")){
                     Toast.makeText(LoginActivity.this, emailTextView.getText(), Toast.LENGTH_SHORT).show();
+                    Intent gotoMainActivity = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(gotoMainActivity);
                 }
             }
         });

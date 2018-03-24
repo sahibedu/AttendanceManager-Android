@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@drawable/gradientcolor">
+    android:background="@drawable/gradientcolor"
+    >
 
     <ImageView
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
         android:id="@+id/idTextField"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
         />
 
     <EditText
@@ -32,17 +34,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:id="@+id/passwordText"
+        android:layout_marginStart="20dp"
+
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/passwordText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
         android:text="LOGIN"
         android:textColor="@android:color/holo_blue_dark"
-        android:id="@+id/loginbtn"/>
+        android:id="@+id/loginbtn"
+        android:layout_marginTop="37dp"
+        android:layout_marginStart="20dp"
+        android:textSize="16sp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,7 +61,7 @@
         android:textColor="@android:color/white"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Register Here"
         android:layout_alignParentBottom="true"
