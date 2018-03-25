@@ -28,10 +28,13 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (emailTextView.getText().toString().equalsIgnoreCase("admin")){
-                    Toast.makeText(LoginActivity.this, emailTextView.getText(), Toast.LENGTH_SHORT).show();
+                if (emailTextView.getText().toString().equalsIgnoreCase("0000")){
+                    //Toast.makeText(LoginActivity.this, emailTextView.getText(), Toast.LENGTH_SHORT).show();
                     Intent gotoMainActivity = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(gotoMainActivity);
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, "Incorrect Credentials", Toast.LENGTH_SHORT).show();
                 }
             }
         });

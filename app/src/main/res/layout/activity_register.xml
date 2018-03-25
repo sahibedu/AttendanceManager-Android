@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome To Attendace Manager"
+        android:text="Welcome To Attendance Manager"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textColor="@android:color/white"
@@ -67,6 +67,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:background="@android:color/holo_red_light"/>
+        android:background="@android:color/white"
+        android:id="@+id/signupbtn"/>
 
 </RelativeLayout>

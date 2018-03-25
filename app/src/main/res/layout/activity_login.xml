@@ -8,10 +8,10 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/placeholder"
+        android:src="@drawable/classroom"
         android:scaleType="centerCrop"
         android:id="@+id/imageView"/>
 
@@ -24,6 +24,7 @@
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
+        android:inputType="number"
         />
 
     <EditText
@@ -35,7 +36,7 @@
         android:layout_marginTop="30dp"
         android:id="@+id/passwordText"
         android:layout_marginStart="20dp"
-
+        android:inputType="textPassword"
         />
 
     <Button
@@ -54,7 +55,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dont Have an Account ? "
+        android:text="Don't Have an Account ? "
         android:layout_above="@id/registerbtn"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
