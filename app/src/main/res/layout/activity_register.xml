@@ -1,73 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@drawable/gradientcolor">
+    android:background="@drawable/gradientcolor"
+    android:padding="16dp">
 
     <TextView
+        android:id="@+id/titletext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Welcome To Attendance Manager"
         android:textAlignment="center"
-        android:textSize="24sp"
         android:textColor="@android:color/white"
-        android:id="@+id/titletext"
-        android:layout_marginTop="24dp"/>
+        android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/nameedittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titletext"
-        android:hint="Enter Your Name"
         android:layout_marginTop="40dp"
-        android:textColor="@android:color/white"
-        android:id="@+id/nameedittext"
+        android:hint="Enter Your Name"
         android:inputType="textAutoComplete"
-        />
+        android:textColor="@android:color/white" />
 
     <EditText
+        android:id="@+id/emailedittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nameedittext"
-        android:hint="Enter Email id"
         android:layout_marginTop="10dp"
-        android:textColor="@android:color/white"
         android:contentDescription="Hello World"
-        android:id="@+id/emailedittext"
+        android:hint="Enter Email id"
         android:inputType="textEmailAddress"
-        />
+        android:textColor="@android:color/white" />
 
     <EditText
+        android:id="@+id/passwordedittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/emailedittext"
-        android:hint="Enter Password"
         android:layout_marginTop="10dp"
-        android:textColor="@android:color/white"
-        android:id="@+id/passwordedittext"
+        android:hint="Enter Password"
         android:inputType="textPassword"
-        />
+        android:textColor="@android:color/white" />
 
     <EditText
+        android:id="@+id/confirmpassedittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordedittext"
-        android:hint="Confirm Password"
         android:layout_marginTop="10dp"
-        android:textColor="@android:color/white"
-        android:id="@+id/confirmpassedittext"
+        android:hint="Confirm Password"
         android:inputType="textPassword"
-        />
+        android:textColor="@android:color/white" />
+
     <Button
+        android:id="@+id/signupbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
         android:background="@android:color/white"
-        android:id="@+id/signupbtn"/>
+        android:text="Sign Up" />
 
 </RelativeLayout>
