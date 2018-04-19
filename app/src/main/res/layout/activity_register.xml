@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientcolor"
     android:padding="16dp">
 
     <TextView
@@ -12,7 +16,7 @@
         android:layout_marginTop="24dp"
         android:text="Welcome To Attendance Manager"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/PrimaryTextColor"
         android:textSize="24sp" />
 
     <EditText
@@ -23,7 +27,7 @@
         android:layout_marginTop="40dp"
         android:hint="Enter Your Name"
         android:inputType="textAutoComplete"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/emailedittext"
@@ -34,7 +38,7 @@
         android:contentDescription="Hello World"
         android:hint="Enter Email id"
         android:inputType="textEmailAddress"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/passwordedittext"
@@ -44,7 +48,7 @@
         android:layout_marginTop="10dp"
         android:hint="Enter Password"
         android:inputType="textPassword"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/confirmpassedittext"
@@ -54,7 +58,7 @@
         android:layout_marginTop="10dp"
         android:hint="Confirm Password"
         android:inputType="textPassword"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/signupbtn"
@@ -63,7 +67,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:background="@android:color/white"
-        android:text="Sign Up" />
+        android:background="@color/lightPrimaryColor"
+        android:text="Sign Up"
+        android:textColor="@color/PrimaryTextColor"/>
 
 </RelativeLayout>
+</ScrollView>

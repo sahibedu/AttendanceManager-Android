@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    >
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:src="@mipmap/ic_account_circle_black_48dp"
+    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile Name"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/PrimaryTextColor"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rohan Goyal"
+        android:textSize="24sp"
+        android:id="@+id/profileText"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Position"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/PrimaryTextColor"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Associate Android Professor"
+        android:textSize="24sp"
+        android:id="@+id/positionText"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone No"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/PrimaryTextColor"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="987654321"
+        android:textSize="24sp"
+        android:id="@+id/numberText"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email ID"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/PrimaryTextColor"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test@test.com"
+        android:textSize="24sp"
+        android:id="@+id/emailText"/>
+</LinearLayout>
+</ScrollView>

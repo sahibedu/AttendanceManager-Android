@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView emailTextView;
     TextView passwordTextView;
     Button loginBtn, registerBtn;
+    ProgressBar progressIndicator;
     private FirebaseAuth mAuth;
 
     @Override
@@ -32,7 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         passwordTextView = findViewById(R.id.passwordText);
         loginBtn = findViewById(R.id.loginbtn);
         registerBtn = findViewById(R.id.registerbtn);
+        progressIndicator = findViewById(R.id.progressIndicator);
         mAuth = FirebaseAuth.getInstance();
+
+        progressIndicator.setVisibility(View.INVISIBLE);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (emailTextView.getText().toString().equalsIgnoreCase("") || passwordTextView.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(LoginActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressIndicator.setVisibility(View.VISIBLE);
                     mAuth.signInWithEmailAndPassword(emailTextView.getText().toString(), passwordTextView.getText().toString()).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -48,9 +54,11 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Welcome to Attendace Manager", Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent gotoMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                                progressIndicator.setVisibility(View.GONE);
                                 gotoMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(gotoMainActivity);
                             } else {
+                                progressIndicator.setVisibility(View.GONE);
                                 Toast.makeText(LoginActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
