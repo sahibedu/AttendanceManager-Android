@@ -10,12 +10,21 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 <!-- Attendance Manager -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please Verify Your Email For Uninterupted Use!"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:id="@+id/verificationMsg"
+        />
     <android.support.v7.widget.CardView
         android:id="@+id/cardView1"
         android:layout_width="160dp"
         android:layout_height="200dp"
         app:cardBackgroundColor="@android:color/holo_green_light"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        android:layout_below="@id/verificationMsg">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +53,8 @@
         android:layout_alignParentEnd="true"
         android:foregroundGravity="center"
         app:cardBackgroundColor="@android:color/holo_red_light"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        android:layout_below="@id/verificationMsg">
 
         <LinearLayout
             android:layout_width="match_parent"

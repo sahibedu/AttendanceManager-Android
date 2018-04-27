@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.sql.Time;
 
 public class MainActivity extends AppCompatActivity {
 
     CardView attendanceBtn, profileBtn, notesBtn, timetableBtn;
-
+    TextView verificationMsg;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
         timetableBtn = findViewById(R.id.cardView2);
         notesBtn = findViewById(R.id.cardView3);
         profileBtn = findViewById(R.id.cardView4);
+        verificationMsg = findViewById(R.id.verificationMsg);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser().isEmailVerified()){
+            verificationMsg.setVisibility(View.GONE);
+        }
 
         attendanceBtn.setOnClickListener(new View.OnClickListener() {
             @Override

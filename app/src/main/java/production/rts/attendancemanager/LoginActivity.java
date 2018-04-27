@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent gotoMainActivity = new Intent(LoginActivity.this, MainActivity.class);
                                 progressIndicator.setVisibility(View.GONE);
-                                gotoMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                gotoMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(gotoMainActivity);
                             } else {
                                 progressIndicator.setVisibility(View.GONE);
