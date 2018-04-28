@@ -25,6 +25,7 @@ public class NotesViewerActivity extends AppCompatActivity {
     FloatingActionButton floatBtn;
     private FirebaseAuth mAuth;
     ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class NotesViewerActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getUid();
         final ArrayList<String> Userlist = new ArrayList<>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,Userlist);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Userlist);
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -44,10 +45,10 @@ public class NotesViewerActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
                 }
-                    listView.setAdapter(adapter);
+                listView.setAdapter(adapter);
             }
 
             @Override
