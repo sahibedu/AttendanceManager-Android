@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class NotesActivity extends AppCompatActivity {
 
@@ -36,13 +37,24 @@ public class NotesActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //HashMap<String,String> userMap = new HashMap<>();
-                //userMap.put("Notes",textBox.getText().toString());
-                myRef.child("Notes").setValue(textBox.getText().toString());
-                Intent gotoNotesViewer = new Intent(NotesActivity.this,NotesViewerActivity.class);
+                myRef.child(random()).setValue(textBox.getText().toString());
+                Intent gotoNotesViewer = new Intent(NotesActivity.this, NotesViewerActivity.class);
                 startActivity(gotoNotesViewer);
             }
         });
+    }
 
+    //Creating a Random String
+
+    public static String random() {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(10);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++) {
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
     }
 }
