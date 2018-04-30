@@ -25,6 +25,7 @@ public class NotesViewerActivity extends AppCompatActivity {
     FloatingActionButton floatBtn;
     private FirebaseAuth mAuth;
     ListView listView;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,12 @@ public class NotesViewerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes_viewer);
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getUid();
-        final ArrayList<String> Userlist = new ArrayList<>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Userlist);
+        final ArrayList<String> Noteslist = new ArrayList<>();
+        final ArrayList<String> keyList = new ArrayList<>();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Noteslist);
 
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Notes").child(uid);
 
         floatBtn = findViewById(R.id.floatingActionButton);
@@ -46,7 +48,8 @@ public class NotesViewerActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
+                    Noteslist.add(String.valueOf(dsp.getValue())); //add result into array list
+                    keyList.add(String.valueOf(dsp.getKey()));
                 }
                 listView.setAdapter(adapter);
             }
@@ -65,6 +68,19 @@ public class NotesViewerActivity extends AppCompatActivity {
                 startActivity(gotoNotesEditor);
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                database = FirebaseDatabase.getInstance();
+                String uid = mAuth.getUid();
+
+                DatabaseReference keyRef =  database.getReference("Notes").child(uid);
+                 keyRef.child(keyList.get(position)).removeValue();
+                 Noteslist.removeAll(Noteslist);
+            }
+        });
     }
+
 
 }

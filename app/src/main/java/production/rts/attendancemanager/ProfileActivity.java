@@ -61,7 +61,6 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
-
     }
 
     @Override
@@ -83,7 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
                        FirebaseUser user = mAuth.getCurrentUser();
                        user.updateProfile(imageUpdate);
                        Toast.makeText(ProfileActivity.this,"Photo Updated",Toast.LENGTH_LONG).show();
-                    Toast.makeText(ProfileActivity.this,mAuth.getCurrentUser().getPhotoUrl().toString(),Toast.LENGTH_LONG).show();
                    } else {
                        Toast.makeText(ProfileActivity.this,"Photo Upload Failed",Toast.LENGTH_LONG).show();
                    }

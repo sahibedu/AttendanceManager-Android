@@ -1,7 +1,7 @@
 package production.rts.attendancemanager;
 
 import android.content.Intent;
-import android.preference.PreferenceManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +17,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,6 +30,9 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     ProgressBar progressIndicator;
+    CircleImageView displayPhoto;
+    public static final int PICK_IMAGE = 1;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +45,13 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordedittext);
         confirmPasswordEditText = findViewById(R.id.confirmpassedittext);
         progressIndicator = findViewById(R.id.progressIndicator);
+        displayPhoto = findViewById(R.id.displayPhoto);
 
         progressIndicator.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
 
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +96,16 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+        displayPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
+        });
     }
 
     @Override
@@ -93,5 +114,35 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth.signOut();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mAuth = FirebaseAuth.getInstance();
+        String getUID = mAuth.getUid();
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+
+            Uri imageURL = data.getData();
+            StorageReference filePath = mStorageRef.child("DisplayPics").child(getUID+".jpg");
+            filePath.putFile(imageURL).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful()){
+                        displayPhoto.setImageURI(data.getData());
+                        String photoURI = task.getResult().getDownloadUrl().toString();
+                        UserProfileChangeRequest imageUpdate = new UserProfileChangeRequest.Builder().setPhotoUri(Uri.parse(photoURI)).build();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        user.updateProfile(imageUpdate);
+
+                        Toast.makeText(RegisterActivity.this,"Photo Updated",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(RegisterActivity.this,"Photo Upload Failed",Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } else if(resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "PhotoPicker Cancelled", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
