@@ -134,11 +134,41 @@
                     />
             </LinearLayout>
         </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardView5"
+            android:layout_below="@id/cardView4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:contentDescription="Logo"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_account_circle_black_48dp"
+                    android:background="#2D333A" />
+                <EditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:hint="+91-xxxxx"
+                    android:inputType="textPassword"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:background="#3D4751"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
         <ProgressBar
             android:id="@+id/progressIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cardView4"
+            android:layout_below="@id/cardView5"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"/>
         <android.support.v7.widget.CardView

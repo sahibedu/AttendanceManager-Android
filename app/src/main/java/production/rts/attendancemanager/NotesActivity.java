@@ -37,24 +37,12 @@ public class NotesActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myRef.child(random()).setValue(textBox.getText().toString());
+                String id  = myRef.push().getKey();
+                myRef.child(id).setValue(textBox.getText().toString());
                 Intent gotoNotesViewer = new Intent(NotesActivity.this, NotesViewerActivity.class);
+                gotoNotesViewer.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(gotoNotesViewer);
             }
         });
-    }
-
-    //Creating a Random String
-
-    public static String random() {
-        Random generator = new Random();
-        StringBuilder randomStringBuilder = new StringBuilder();
-        int randomLength = generator.nextInt(10);
-        char tempChar;
-        for (int i = 0; i < randomLength; i++) {
-            tempChar = (char) (generator.nextInt(96) + 32);
-            randomStringBuilder.append(tempChar);
-        }
-        return randomStringBuilder.toString();
     }
 }

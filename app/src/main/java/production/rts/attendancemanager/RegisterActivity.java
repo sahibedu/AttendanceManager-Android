@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     Button registerbtn;
     private FirebaseAuth mAuth;
-    EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
+    EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText,phoneNumber;
     ProgressBar progressIndicator;
     CircleImageView displayPhoto;
     public static final int PICK_IMAGE = 1;
@@ -43,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameedittext);
         emailEditText = findViewById(R.id.emailedittext);
         passwordEditText = findViewById(R.id.passwordedittext);
+        phoneNumber = findViewById(R.id.phoneNumber);
         confirmPasswordEditText = findViewById(R.id.confirmpassedittext);
         progressIndicator = findViewById(R.id.progressIndicator);
         displayPhoto = findViewById(R.id.displayPhoto);
@@ -56,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameEditText.getText().toString().equalsIgnoreCase("") || emailEditText.getText().toString().equalsIgnoreCase("") || passwordEditText.getText().toString().equalsIgnoreCase("") || confirmPasswordEditText.getText().toString().equalsIgnoreCase("")) {
+                if (nameEditText.getText().toString().equalsIgnoreCase("") || emailEditText.getText().toString().equalsIgnoreCase("") || passwordEditText.getText().toString().equalsIgnoreCase("") || confirmPasswordEditText.getText().toString().equalsIgnoreCase("")||phoneNumber.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(RegisterActivity.this, "Enter Your Crenditals", Toast.LENGTH_SHORT).show();
                 } else {
                     if(passwordEditText.getText().toString().equals(confirmPasswordEditText.getText().toString())){
@@ -69,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     UserProfileChangeRequest nameUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nameEditText.getText().toString()).build();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     user.updateProfile(nameUpdate);
+
                                     progressIndicator.setVisibility(View.GONE);
                                     user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
