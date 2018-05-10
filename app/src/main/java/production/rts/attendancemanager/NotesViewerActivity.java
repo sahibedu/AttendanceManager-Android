@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +22,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 public class NotesViewerActivity extends AppCompatActivity {
+
+
+    ArrayList<String> Noteslist = new ArrayList<>();
+    ArrayList<String> keyList = new ArrayList<>();
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Noteslist);
 
     FloatingActionButton floatBtn;
     private FirebaseAuth mAuth;
@@ -36,10 +43,6 @@ public class NotesViewerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes_viewer);
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getUid();
-        final ArrayList<String> Noteslist = new ArrayList<>();
-        final ArrayList<String> keyList = new ArrayList<>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Noteslist);
-
 
         database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Notes").child(uid);
@@ -88,17 +91,26 @@ public class NotesViewerActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater  = getMenuInflater();
         inflater.inflate(R.menu.listviewmenu,menu);
-        return true;
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle().toString().equalsIgnoreCase("Delete")){
-            System.out.println("Context Menu Called");
+        //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+
+        switch (item.getItemId()){
+            case R.id.deleteOption:{
+                //adapter.remove(adapter.getItem(info.position));
+                return true;
+            }
+            default:{
+                Log.d("Default","Noting Found");
+                return false;
+            }
         }
-        return true;
     }
 }
