@@ -26,20 +26,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
-public class AttendanceViewer extends AppCompatActivity implements DatePickerDialog.OnDateSetListener  {
+public class AttendanceViewer extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ListView listview;
     TextView datePickerText;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final ArrayList<String> rollNoList = new ArrayList<>();
     private FirebaseAuth mAuth;
-    String uid,keyValue;
+    String uid, keyValue;
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
-        c.set( Calendar.YEAR,year);
-        c.set(Calendar.MONTH,month);
-        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         datePickerText.setText(currentDate);
@@ -65,7 +65,7 @@ public class AttendanceViewer extends AppCompatActivity implements DatePickerDia
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     //add result into array list
-                    studentList.add(String.valueOf(dsp.getKey())+" "+String.valueOf(dsp.getValue()));
+                    studentList.add(String.valueOf(dsp.getKey()) + " " + String.valueOf(dsp.getValue()));
                     rollNoList.add(String.valueOf(dsp.getKey()));
                 }
                 listview.setAdapter(adapter);
@@ -82,10 +82,9 @@ public class AttendanceViewer extends AppCompatActivity implements DatePickerDia
             public void onClick(View v) {
 
                 DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(),"Date Picker");
+                datePicker.show(getSupportFragmentManager(), "Date Picker");
             }
         });
-
 
 
         final DatabaseReference attendanceRef = database.getReference("Attendance").child(uid).child(keyValue);
@@ -99,10 +98,10 @@ public class AttendanceViewer extends AppCompatActivity implements DatePickerDia
                 dateAttendance.child(rollNo).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue().toString().equalsIgnoreCase("P")){
-                          DatabaseReference dsp = dataSnapshot.getRef();
+                        if (dataSnapshot.getValue().toString().equalsIgnoreCase("P")) {
+                            DatabaseReference dsp = dataSnapshot.getRef();
                             dsp.setValue("A");
-                          Toast.makeText(AttendanceViewer.this,"Marked Absent",Toast.LENGTH_LONG).show();
+                            Toast.makeText(AttendanceViewer.this, "Marked Absent", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -115,10 +114,10 @@ public class AttendanceViewer extends AppCompatActivity implements DatePickerDia
         });
     }
 
-    public void markAllPresent(){
+    public void markAllPresent() {
         final DatabaseReference attendanceRef = database.getReference("Attendance").child(uid).child(keyValue);
         Iterator<String> iterator = rollNoList.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             String dateToBe = datePickerText.getText().toString();
             DatabaseReference dateAttendance = attendanceRef.child(dateToBe);
             dateAttendance.child(iterator.next()).setValue("P");
