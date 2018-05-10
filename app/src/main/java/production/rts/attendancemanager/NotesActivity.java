@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,8 +29,9 @@ public class NotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser muser = mAuth.getCurrentUser();
         setContentView(R.layout.activity_notes);
-        final String uid = mAuth.getUid();
+        final String uid = muser.getUid();
         final DatabaseReference myRef = database.getReference("Notes").child(uid);
 
         textBox = findViewById(R.id.notesEditText);
@@ -37,11 +40,15 @@ public class NotesActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id  = myRef.push().getKey();
-                myRef.child(id).setValue(textBox.getText().toString());
-                Intent gotoNotesViewer = new Intent(NotesActivity.this, NotesViewerActivity.class);
-                gotoNotesViewer.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(gotoNotesViewer);
+                if(textBox.getText().toString().isEmpty()){
+                    Toast.makeText(NotesActivity.this, "Please Enter Text To Save", Toast.LENGTH_SHORT).show();
+                }else {
+                    String id  = myRef.push().getKey();
+                    myRef.child(id).setValue(textBox.getText().toString());
+                    Intent gotoNotesViewer = new Intent(NotesActivity.this, NotesViewerActivity.class);
+                    gotoNotesViewer.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(gotoNotesViewer);
+                }
             }
         });
     }

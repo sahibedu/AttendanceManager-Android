@@ -14,7 +14,7 @@ import java.sql.Time;
 
 public class MainActivity extends AppCompatActivity {
 
-    CardView attendanceBtn, profileBtn, notesBtn, timetableBtn;
+    CardView attendanceBtn, profileBtn, notesBtn, timetableBtn,attendanceViewBtn;
     TextView verificationMsg;
     private FirebaseAuth mAuth;
     @Override
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         timetableBtn = findViewById(R.id.cardView2);
         notesBtn = findViewById(R.id.cardView3);
         profileBtn = findViewById(R.id.cardView4);
+        attendanceViewBtn = findViewById(R.id.cardView5);
         verificationMsg = findViewById(R.id.verificationMsg);
 
         mAuth = FirebaseAuth.getInstance();
@@ -62,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent gotoProfileActivity = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(gotoProfileActivity);
+            }
+        });
+
+        attendanceViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoAttendanceViewer = new Intent(MainActivity.this,ViewClass.class);
+                startActivity(gotoAttendanceViewer);
             }
         });
     }

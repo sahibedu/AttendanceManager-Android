@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,11 +52,12 @@ public class AttendanceViewer extends AppCompatActivity implements DatePickerDia
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_viewer);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser muser = mAuth.getCurrentUser();
         keyValue = getIntent().getStringExtra("key");
         listview = findViewById(R.id.listView1);
         datePickerText = findViewById(R.id.datePickerText);
-        mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getUid();
+        uid = muser.getUid();
         final ArrayList<String> studentList = new ArrayList<>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, studentList);
 
@@ -64,11 +67,67 @@ public class AttendanceViewer extends AppCompatActivity implements DatePickerDia
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    //add result into array list
                     studentList.add(String.valueOf(dsp.getKey()) + " " + String.valueOf(dsp.getValue()));
                     rollNoList.add(String.valueOf(dsp.getKey()));
                 }
                 listview.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        datePickerText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "Date Picker");
+            }
+        });
+
+
+        final DatabaseReference attendanceRef = database.getReference("Attendance").child(uid).child(keyValue);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> parent, final View view, int position, long id) {
+                String rollNo = rollNoList.get(position);
+                String dateToBe = datePickerText.getText().toString();
+                DatabaseReference dateAttendance = attendanceRef.child(dateToBe);
+                dateAttendance.child(rollNo).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue().toString().equalsIgnoreCase("P")) {
+                            DatabaseReference dsp = dataSnapshot.getRef();
+                            dsp.setValue("A");
+                            Toast.makeText(AttendanceViewer.this, "Marked Absent", Toast.LENGTH_SHORT).show();
+                        }else {
+                            DatabaseReference dsp = dataSnapshot.getRef();
+                            dsp.setValue("P");
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
+                //AddEvent Listener Ends Here
+            }
+            //OnItemClick Ends Here
+        });
+    }
+
+    public void markAllPresent() {
+        final DatabaseReference attendanceRef = database.getReference("Attendance").child(uid).child(keyValue);
+        final Iterator<String> iterator = rollNoList.iterator();
+        String dateToBe = datePickerText.getText().toString();
+        final DatabaseReference dateAttendance = attendanceRef.child(dateToBe);
+        dateAttendance.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    //Toast.makeText(AttendanceViewer.this,"Value Exists",Toast.LENGTH_SHORT).show();
+                } else {
+                    while (iterator.hasNext()) {
+                        dateAttendance.child(iterator.next()).setValue("P");
+                    }
+                }
             }
 
             @Override
@@ -77,50 +136,6 @@ public class AttendanceViewer extends AppCompatActivity implements DatePickerDia
             }
         });
 
-        datePickerText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "Date Picker");
-            }
-        });
-
-
-        final DatabaseReference attendanceRef = database.getReference("Attendance").child(uid).child(keyValue);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> parent, final View view, int position, long id) {
-                String rollNo = rollNoList.get(position);
-                String dateToBe = datePickerText.getText().toString();
-                DatabaseReference dateAttendance = attendanceRef.child(dateToBe);
-                dateAttendance.child(rollNo).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue().toString().equalsIgnoreCase("P")) {
-                            DatabaseReference dsp = dataSnapshot.getRef();
-                            dsp.setValue("A");
-                            Toast.makeText(AttendanceViewer.this, "Marked Absent", Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        });
-    }
-
-    public void markAllPresent() {
-        final DatabaseReference attendanceRef = database.getReference("Attendance").child(uid).child(keyValue);
-        Iterator<String> iterator = rollNoList.iterator();
-        while (iterator.hasNext()) {
-            String dateToBe = datePickerText.getText().toString();
-            DatabaseReference dateAttendance = attendanceRef.child(dateToBe);
-            dateAttendance.child(iterator.next()).setValue("P");
-        }
     }
 }

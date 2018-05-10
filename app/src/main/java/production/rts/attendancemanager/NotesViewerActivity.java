@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +31,6 @@ public class NotesViewerActivity extends AppCompatActivity {
 
     ArrayList<String> Noteslist = new ArrayList<>();
     ArrayList<String> keyList = new ArrayList<>();
-    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Noteslist);
 
     FloatingActionButton floatBtn;
     private FirebaseAuth mAuth;
@@ -42,15 +42,15 @@ public class NotesViewerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_viewer);
         mAuth = FirebaseAuth.getInstance();
-        String uid = mAuth.getUid();
+        final FirebaseUser muser = mAuth.getCurrentUser();
+        String uid = muser.getUid();
 
         database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Notes").child(uid);
 
         floatBtn = findViewById(R.id.floatingActionButton);
         listView = findViewById(R.id.listView1);
-        registerForContextMenu(listView);
-
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Noteslist);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,40 +77,18 @@ public class NotesViewerActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 database = FirebaseDatabase.getInstance();
-                String uid = mAuth.getUid();
+                String uid = muser.getUid();
 
                 DatabaseReference keyRef =  database.getReference("Notes").child(uid);
-                 keyRef.child(keyList.get(position)).removeValue();
-                 Noteslist.removeAll(Noteslist);
-            }
-        });
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater  = getMenuInflater();
-        inflater.inflate(R.menu.listviewmenu,menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-
-        switch (item.getItemId()){
-            case R.id.deleteOption:{
-                //adapter.remove(adapter.getItem(info.position));
+                keyRef.child(keyList.get(position)).removeValue();
+                Noteslist.removeAll(Noteslist);
+                Toast.makeText(NotesViewerActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
                 return true;
             }
-            default:{
-                Log.d("Default","Noting Found");
-                return false;
-            }
-        }
+        });
     }
 }

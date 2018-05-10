@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,12 +33,13 @@ public class AttendanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_attendance);
         listview = findViewById(R.id.listView1);
         mAuth = FirebaseAuth.getInstance();
-        final String uid = mAuth.getUid();
+        FirebaseUser muser = mAuth.getCurrentUser();
+        final String uid = muser.getUid();
         final ArrayList<String> classList = new ArrayList<>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, classList);
 
         DatabaseReference myRef = database.getReference("ClassList");
-        DatabaseReference userReference = myRef.child(uid);
+        DatabaseReference userReference = myRef.child(muser.getUid());
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override

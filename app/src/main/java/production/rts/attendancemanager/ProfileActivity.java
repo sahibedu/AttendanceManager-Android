@@ -14,6 +14,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -30,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
     private StorageReference mStorageRef;
     private FirebaseAuth mAuth;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +49,28 @@ public class ProfileActivity extends AppCompatActivity {
         displayImage = findViewById(R.id.displayPhoto);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
-
+        final FirebaseUser mUser = mAuth.getCurrentUser();
+        final DatabaseReference idRefernce = database.getReference("Users").child(mUser.getUid());
+        //Toast.makeText(this, mAuth.getUid(), Toast.LENGTH_SHORT).show();
         mStorageRef = FirebaseStorage.getInstance().getReference();
-
         nameText.setText(mUser.getDisplayName());
         emailText.setText(mUser.getEmail());
-        phoneText.setText(mUser.getUid());
         Picasso.get().load(mUser.getPhotoUrl()).placeholder(R.mipmap.ic_account_circle_black_48dp).error(R.mipmap.ic_account_circle_black_48dp).into(displayImage);
+        idRefernce.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() == 0){
+                    //Toast.makeText(ProfileActivity.this, "No Information Found", Toast.LENGTH_SHORT).show();
+                }else {
+                    phoneText.setText(dataSnapshot.child("PhoneNo").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         displayImage.setOnClickListener(new View.OnClickListener() {
             @Override

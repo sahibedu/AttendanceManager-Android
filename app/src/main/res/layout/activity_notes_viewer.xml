@@ -5,10 +5,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Notes View"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/textLabel" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
@@ -17,5 +31,5 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
         android:src="@android:drawable/ic_dialog_email"
-        app:backgroundTint="@color/colorPrimaryDark" />
+        app:backgroundTint="@color/colorAccent" />
 </RelativeLayout>

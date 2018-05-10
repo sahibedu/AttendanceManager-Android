@@ -3,10 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Time Table"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
     <production.rts.attendancemanager.TouchImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/classroom"/>
+        android:src="@drawable/classroom"
+        android:id="@+id/timeTableImage"/>
 </LinearLayout>
 
