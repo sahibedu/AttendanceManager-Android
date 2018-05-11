@@ -29,8 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     Button registerbtn,backBtn;
-    private FirebaseAuth mAuth;
-    FirebaseUser muser;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText,phoneNumber;
     ProgressBar progressIndicator;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -52,9 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressIndicator.setVisibility(View.INVISIBLE);
 
-        mAuth = FirebaseAuth.getInstance();
-
-
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,10 +64,10 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     //Sign in Successful
-                                    UserProfileChangeRequest nameUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nameEditText.getText().toString()).build();
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    final DatabaseReference idRefernce = database.getReference("Users").child(user.getUid());
+                                    UserProfileChangeRequest nameUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nameEditText.getText().toString()).build();
                                     user.updateProfile(nameUpdate);
+                                    DatabaseReference idRefernce = database.getReference("Users").child(user.getUid());
                                     idRefernce.child("PhoneNo").setValue(phoneNumber.getText().toString());
                                     progressIndicator.setVisibility(View.GONE);
                                     user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
