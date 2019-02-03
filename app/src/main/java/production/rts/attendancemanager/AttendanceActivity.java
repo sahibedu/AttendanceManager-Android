@@ -3,7 +3,7 @@ package production.rts.attendancemanager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,29 +17,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Console;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AttendanceActivity extends AppCompatActivity {
 
     ListView listview;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseDatabase database;
+    Toolbar toolbar;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
-        listview = findViewById(R.id.listView1);
+        listview = findViewById(R.id.listView_attendance);
+        toolbar = findViewById(R.id.toolbar_attendance);
+        setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser muser = mAuth.getCurrentUser();
-        final String uid = muser.getUid();
+        database = FirebaseDatabase.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
         final ArrayList<String> classList = new ArrayList<>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, classList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, R.id.textview1, classList);
 
         DatabaseReference myRef = database.getReference("ClassList");
-        DatabaseReference userReference = myRef.child(muser.getUid());
+        DatabaseReference userReference = myRef.child(user.getUid());
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -57,8 +59,8 @@ public class AttendanceActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent gotoAttendanceViewer = new Intent(AttendanceActivity.this,AttendanceViewer.class);
-                gotoAttendanceViewer.putExtra("key",classList.get(position));
+                Intent gotoAttendanceViewer = new Intent(AttendanceActivity.this, AttendanceMarker.class);
+                gotoAttendanceViewer.putExtra("key", classList.get(position));
                 startActivity(gotoAttendanceViewer);
             }
         });

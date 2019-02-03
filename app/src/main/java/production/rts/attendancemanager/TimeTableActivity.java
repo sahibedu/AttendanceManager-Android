@@ -90,6 +90,7 @@ public class TimeTableActivity extends AppCompatActivity {
             filePath.putFile(imageURL).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    /*
                     if(task.isSuccessful()){
                         String photoURI = task.getResult().getDownloadUrl().toString();
                         final DatabaseReference myRef = database.getReference("Users").child(uid);
@@ -103,5 +104,10 @@ public class TimeTableActivity extends AppCompatActivity {
         } else if(resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "PhotoPicker Cancelled", Toast.LENGTH_SHORT).show();
         }
+        */
+    }
+});
+        }
     }
 }
+

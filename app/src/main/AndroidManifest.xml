@@ -16,19 +16,25 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".AttendanceActivity" />
-        <activity android:name=".AttendanceViewer" />
-        <activity android:name=".TimeTableActivity" />
-        <activity android:name=".NotesActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".NotesViewerActivity" />
-        <activity android:name=".ViewAttendance" />
-        <activity android:name=".ViewClass"></activity>
+        <activity android:name=".AttendanceMarker"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".TimeTableActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".NotesActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ProfileActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".NotesViewerActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ViewAttendance"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ViewClass"/>
     </application>
 
 </manifest>

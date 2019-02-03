@@ -3,12 +3,14 @@ package production.rts.attendancemanager;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,88 +30,83 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RegisterActivity extends AppCompatActivity {
 
 
-    Button registerbtn,backBtn;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText,phoneNumber;
+    Button registerbtn;
+    TextView loginText;
+    FirebaseAuth mAuth;
+    TextInputEditText nameEdit, emailEdit, passwordEdit, confirmPasswordEdit,phoneEdit;
     ProgressBar progressIndicator;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        registerbtn = findViewById(R.id.registerbtn);
-        backBtn = findViewById(R.id.backbtn);
-        nameEditText = findViewById(R.id.nameedittext);
-        emailEditText = findViewById(R.id.emailedittext);
-        passwordEditText = findViewById(R.id.passwordedittext);
-        phoneNumber = findViewById(R.id.phoneNumber);
-        confirmPasswordEditText = findViewById(R.id.confirmpassedittext);
-        progressIndicator = findViewById(R.id.progressIndicator);
+        registerbtn = findViewById(R.id.btn_register_register);
+        loginText = findViewById(R.id.tv_login_register);
+        nameEdit = findViewById(R.id.et_name_register);
+        emailEdit = findViewById(R.id.et_email_register);
+        passwordEdit = findViewById(R.id.et_password_register);
+        confirmPasswordEdit = findViewById(R.id.et_confirm_password_register);
+        phoneEdit = findViewById(R.id.et_mobile_register);
+        progressIndicator = findViewById(R.id.progressbar_register);
 
         progressIndicator.setVisibility(View.INVISIBLE);
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameEditText.getText().toString().equalsIgnoreCase("") || emailEditText.getText().toString().equalsIgnoreCase("") || passwordEditText.getText().toString().equalsIgnoreCase("") || confirmPasswordEditText.getText().toString().equalsIgnoreCase("")||phoneNumber.getText().toString().equalsIgnoreCase("")) {
-                    Toast.makeText(RegisterActivity.this, "Enter Your Crenditals", Toast.LENGTH_SHORT).show();
+                if (nameEdit.getText().toString().equalsIgnoreCase("") || emailEdit.getText().toString().equalsIgnoreCase("") || passwordEdit.getText().toString().equalsIgnoreCase("") || confirmPasswordEdit.getText().toString().equalsIgnoreCase("")||phoneEdit.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(RegisterActivity.this, "Enter Your Credentials", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(passwordEditText.getText().toString().equals(confirmPasswordEditText.getText().toString())){
+                    if(passwordEdit.getText().toString().equals(confirmPasswordEdit.getText().toString())){
                         progressIndicator.setVisibility(View.VISIBLE);
-                        mAuth.createUserWithEmailAndPassword(emailEditText.getText().toString(), passwordEditText.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                        mAuth.createUserWithEmailAndPassword(emailEdit.getText().toString(), passwordEdit.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     //Sign in Successful
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    UserProfileChangeRequest nameUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nameEditText.getText().toString()).build();
+                                    UserProfileChangeRequest nameUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nameEdit.getText().toString()).build();
                                     user.updateProfile(nameUpdate);
                                     DatabaseReference idRefernce = database.getReference("Users").child(user.getUid());
-                                    idRefernce.child("PhoneNo").setValue(phoneNumber.getText().toString());
-                                    progressIndicator.setVisibility(View.GONE);
+                                    idRefernce.child("PhoneNo").setValue(phoneEdit.getText().toString());
+                                    progressIndicator.setVisibility(View.INVISIBLE);
                                     user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
-                                                Toast.makeText(RegisterActivity.this, "VerificationMailSend", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(RegisterActivity.this, "Verification Mail Send", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
+
                                     Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                    Intent gotoLoginActivity = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    Intent gotoLoginActivity = new Intent(RegisterActivity.this, MainActivity.class);
                                     startActivity(gotoLoginActivity);
                                 } else {
                                     //Sign in Unsuccessful
-                                    progressIndicator.setVisibility(View.GONE);
+                                    progressIndicator.setVisibility(View.INVISIBLE);
                                     Toast.makeText(RegisterActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });   
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Password Don't Match", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Passwords Don't Match", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        loginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoLoginActivity = new Intent(RegisterActivity.this, LoginActivity.class);
-                gotoLoginActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(gotoLoginActivity);
+                finish();
             }
         });
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        mAuth.signOut();
     }
-
 
 }

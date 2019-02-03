@@ -83,7 +83,7 @@ public class NotesViewerActivity extends AppCompatActivity {
                 database = FirebaseDatabase.getInstance();
                 String uid = muser.getUid();
 
-                DatabaseReference keyRef =  database.getReference("Notes").child(uid);
+                DatabaseReference keyRef = database.getReference("Notes").child(uid);
                 keyRef.child(keyList.get(position)).removeValue();
                 Noteslist.removeAll(Noteslist);
                 Toast.makeText(NotesViewerActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();

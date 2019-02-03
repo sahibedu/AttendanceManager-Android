@@ -55,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         nameText.setText(mUser.getDisplayName());
         emailText.setText(mUser.getEmail());
-        Picasso.get().load(mUser.getPhotoUrl()).placeholder(R.mipmap.ic_account_circle_black_48dp).error(R.mipmap.ic_account_circle_black_48dp).into(displayImage);
+        //Picasso.get().load(mUser.getPhotoUrl()).placeholder(R.mipmap.ic_account_circle_black_48dp).error(R.mipmap.ic_account_circle_black_48dp).into(displayImage);
         idRefernce.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -81,6 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
+
     }
 
     @Override
@@ -88,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         mAuth = FirebaseAuth.getInstance();
         String getUID = mAuth.getUid();
-
+/*
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
 
             Uri imageURL = data.getData();
@@ -110,6 +111,7 @@ public class ProfileActivity extends AppCompatActivity {
         } else if(resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "PhotoPicker Cancelled", Toast.LENGTH_SHORT).show();
         }
+        */
     }
 }
 

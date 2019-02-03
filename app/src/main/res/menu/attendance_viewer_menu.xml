@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:title="Calendar"
+    android:id="@+id/menu_calendar"
+    app:showAsAction="ifRoom"
+    android:icon="@drawable/ic_event_white_24dp"
+    />
+<item android:title="Mark All Absent"
+    android:id="@+id/menu_absent"
+    app:showAsAction="never"
+    android:icon="@drawable/ic_check_white_24dp"/>
+<item android:title="Mark All Present"
+    android:id="@+id/menu_present"
+    app:showAsAction="never"
+    android:icon="@drawable/ic_clear_white_24dp"/>
+</menu>

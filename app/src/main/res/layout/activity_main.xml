@@ -1,177 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:fillViewport="true">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="#333B46">
-    <TextView
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
+
+    <View
+        android:id="@+id/view_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Attendance Manager"
-        android:textColor="@android:color/white"
-        android:id="@+id/title"
-        android:textAlignment="center"
-        android:textSize="30sp"/>
-<!-- Attendance Manager -->
+        android:layout_height="200dp"
+        android:background="@drawable/semi_circle_main" />
+    <!-- Background #333B46 -->
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_name_header_main"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please Verify Your Email For Uninterupted Use!"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="16sp"
-        android:id="@+id/verificationMsg"
-        android:layout_marginBottom="20dp"
-        android:layout_below="@id/title"
-        />
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView1"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        app:cardBackgroundColor="#0069DB"
-        app:cardCornerRadius="20dp"
-        android:layout_below="@id/verificationMsg">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@mipmap/baseline_assignment_turned_in_white_48" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Attendance"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-<!-- Time Table -->
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_alignParentEnd="true"
-        android:foregroundGravity="center"
-        app:cardBackgroundColor="#ED3D4A"
-        app:cardCornerRadius="20dp"
-        android:layout_below="@id/verificationMsg">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@mipmap/ic_access_time_white_48dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Time Table"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-<!-- Notes -->
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView3"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_below="@id/cardView1"
-        android:layout_marginTop="24dp"
-        android:foregroundGravity="center"
-        app:cardBackgroundColor="#7E3C9C"
-        app:cardCornerRadius="20dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@mipmap/ic_note_add_white_48dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notes"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-<!-- Profile Button -->
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView4"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/cardView2"
-        android:layout_marginTop="24dp"
-        android:foregroundGravity="center"
-        app:cardBackgroundColor="#FF6C2F"
-        app:cardCornerRadius="20dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@mipmap/ic_face_black_48dp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView5"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/cardView3"
-        android:layout_marginTop="24dp"
-        android:foregroundGravity="center"
-        app:cardBackgroundColor="#FFBB00"
-        app:cardCornerRadius="20dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@mipmap/baseline_check_circle_white_48"
-                />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:text="Sahib Singh" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Check Attendance"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/tv_greeting_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name_header_main"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        tools:text="Good Morning" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_profile_main"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/tv_greeting_main"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/verificationMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_profile_main"
+        android:layout_marginBottom="20dp"
+        android:text="Please Verify Your Email For Uninterupted Use!"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view_main"
+        android:layout_marginTop="36dp"
+        android:fillViewport="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <!-- Attendance -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView1"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                app:cardBackgroundColor="#0069DB"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/baseline_assignment_turned_in_white_48" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Attendance"
+                        android:textColor="@android:color/white"
+                        android:textAlignment="textEnd"
+                        android:layout_marginEnd="16dp"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <!-- Time Table -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_alignParentEnd="true"
+                android:foregroundGravity="center"
+                app:cardBackgroundColor="#ED3D4A"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/ic_access_time_white_48dp"
+                        android:contentDescription="@string/logo"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Time Table"
+                        android:textColor="@android:color/white"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <!-- Notes -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_below="@id/cardView1"
+                android:layout_marginTop="24dp"
+                android:foregroundGravity="center"
+                app:cardBackgroundColor="#7E3C9C"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/ic_note_add_white_48dp"
+                        android:contentDescription="@string/logo"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Notes"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <!-- Discussions  -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_below="@id/cardView2"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="24dp"
+                android:foregroundGravity="center"
+                app:cardBackgroundColor="@android:color/holo_green_dark"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_notifications_white_48dp"
+                        android:contentDescription="@string/logo"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Discussions"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <!-- Attendance Check -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView5"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_below="@id/cardView3"
+                android:layout_marginTop="24dp"
+                android:foregroundGravity="center"
+                app:cardBackgroundColor="#FFBB00"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/baseline_check_circle_white_48"
+                        android:contentDescription="@string/logo"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Check Attendance"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <!-- Profile -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView6"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/cardView4"
+                android:layout_marginTop="24dp"
+                android:foregroundGravity="center"
+                app:cardBackgroundColor="#FF6C2F"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_person_white_48dp"
+                        android:contentDescription="@string/logo"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Profile"
+                        android:textColor="@android:color/white"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
-</ScrollView>
+
